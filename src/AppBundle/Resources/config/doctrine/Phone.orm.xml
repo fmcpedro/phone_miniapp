@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    
+    <entity name="AppBundle\Entity\Phone" table="phone" 
+            repository-class="AppBundle\Repository\PhoneRepository">
+    <indexes>
+      <index name="fk_phone_brand1_idx" columns="brand_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="model" type="string" column="model" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="height" type="float" column="height" precision="10" scale="0" nullable="false"/>
+    <field name="isSmart" type="boolean" column="is_smart" nullable="false"/>
+    <field name="obs" type="text" column="obs" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false"/>
+    <many-to-one field="brand" target-entity="Brand" fetch="LAZY">
+      <join-columns>
+        <join-column name="brand_id" referenced-column-name="id" nullable="false"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="operator" target-entity="Operator" inversed-by="phone" fetch="LAZY">
+      <join-table name="phone_operator">
+        <join-columns>
+          <join-column name="phone_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="operator_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

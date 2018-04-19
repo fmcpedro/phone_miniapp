@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+    <div class="container-fluid">
+        <div class="row">                    
+            <h2>Phones List By Brand:</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            {% for brand in brands %}
+                                <th><a href="{{path('search_brand', {'brandId':brand.id})}}">{{brand.name}}</a>
+                                {% endfor %}</th></tr> 
+                </table>
+            </div>
+
+
+
+            <h2>Phone Details List:</h2>
+            <div>
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Model</th>
+                        <th>Height</th>
+                        <th>Smartphone</th>
+                        <th>Obs</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for phone in phones %}
+                            <tr  class="table-dark">
+                                <td><a href="{{ path('phone_show', { 'id': phone.id }) }}">{{ phone.model }}</a></td>
+                                <td>{{ phone.height }}</td>
+                                <td>{% if phone.isSmart %}Yes{% else %}No{% endif %}</td>
+                                <td>{{ phone.obs }}</td>
+                               <!-- <td>{% if phone.createdAt %}{{ phone.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td> -->
+                             <!--   <td>{% if phone.updatedAt %}{{ phone.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td> -->
+                            <!--    <td>{{ phone.id }}</td> -->
+                                <td>
+                                    <ul>
+                                        <!-- <li>
+                                           <a href="{{ path('phone_show', { 'id': phone.id }) }}">show</a> 
+                                         </li> -->
+                                        <li>
+                                            <a href="{{ path('phone_edit', { 'id': phone.id }) }}">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+    </div>
+
+
+{%endblock%}
+

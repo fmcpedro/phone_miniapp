@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Phone</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Model</th>
+                <td>{{ phone.model }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ phone.height }}</td>
+            </tr>
+            <tr>
+                <th>Issmart</th>
+                <td>{% if phone.isSmart %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Obs</th>
+                <td>{{ phone.obs }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if phone.createdAt %}{{ phone.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if phone.updatedAt %}{{ phone.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ phone.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('phone_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('phone_edit', { 'id': phone.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
